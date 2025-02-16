@@ -1,6 +1,6 @@
 # Cicero Tokenizer
 
-Tokenizer created for my custom LLM model. It's design is based loosely on Byte Pair Encoding (BPE). It's optimized dictionary creation and tokenization speed. Pre-computed dictionaries are based on Amazon Reviews Dataset.
+Tokenizer created for my custom LLM model. It's design is based loosely on Byte Pair Encoding (BPE). It's optimized for dictionary creation and tokenization speed. Pre-computed dictionaries are based on Amazon Reviews Dataset.
 
 ## License
 
