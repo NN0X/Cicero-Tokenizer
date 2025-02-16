@@ -8,7 +8,6 @@ all:
 	mkdir build
 	mkdir build/release
 	$(CXX) $(CFLAGS) $(SRC)/*.cpp -o build/release/$(OUT) 2> build/release/make.log
-	cp -f -r resources build/release/resources
 	cp -f -r dictionaries build/release/dictionaries
 	cp *.md build/release/
 	
@@ -16,8 +15,7 @@ all:
 	$(CXX) $(CFLAGS) -c $(filter-out $(SRC)/main.cpp, $(wildcard $(SRC)/*.cpp)) 2> build/lib/make.log
 	ar rcs build/lib/libcicero.a *.o
 	rm *.o
-	cp -f -r resources build/release/resources
-	cp -f -r dictionaries build/release/dictionaries
+	cp -f -r dictionaries build/lib/dictionaries
 	cp src/cicero.h build/lib/cicero.h
 	cp *.md build/lib/
 
@@ -38,7 +36,6 @@ static:
 	$(CXX) $(CFLAGS) -c $(filter-out $(SRC)/main.cpp, $(wildcard $(SRC)/*.cpp)) 2> build/make.log
 	ar rcs build/libcicero.a *.o
 	rm *.o
-	cp -f -r resources build/resources
 	cp -f -r dictionaries build/dictionaries
 	cp src/cicero.h build/cicero.h
 	cp *.md build/
