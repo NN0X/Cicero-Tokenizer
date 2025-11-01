@@ -17,6 +17,28 @@
 
 #include "tokenizer.h"
 
+size_t countFrequency(const std::string& newToken,
+                      const std::unordered_map<size_t, std::unordered_set<std::string>>& wordsByLength)
+{
+        size_t frequency = 0;
+        for (const auto& wordsLengthBracket : wordsByLength)
+        {
+                if (wordsLengthBracket.first < newToken.size())
+                {
+                        continue;
+                }
+                for (const std::string& word : wordsLengthBracket.second)
+                {
+                        if (word.find(newToken) != std::string::npos)
+                        {
+                                frequency++;
+                        }
+                }
+        }
+
+        return frequency;
+}
+
 void calculateFrequencyThread(std::unordered_map<std::string, size_t>& frequencyCount,
                               std::unordered_map<std::string, size_t>& threadSpecificFrequencyCount,
                               const std::unordered_map<size_t, std::unordered_set<std::string>>& wordsByLength,
@@ -33,22 +55,7 @@ void calculateFrequencyThread(std::unordered_map<std::string, size_t>& frequency
                         {
                                 continue;
                         }
-                        size_t frequency = 0;
-                        for (const auto& wordsLengthBracket : wordsByLength)
-                        {
-                                if (wordsLengthBracket.first < newToken.size())
-                                {
-                                        continue;
-                                }
-                                for (const std::string& word : wordsLengthBracket.second)
-                                {
-                                        if (word.find(newToken) != std::string::npos)
-                                        {
-                                                frequency++;
-                                        }
-                                }
-                        }
-
+                        size_t frequency = countFrequency(newToken, wordsByLength);
                         {
                                 std::lock_guard<std::mutex> lock(frequencyCountMutex);
                                 checkedTokens[newToken] = frequency;
